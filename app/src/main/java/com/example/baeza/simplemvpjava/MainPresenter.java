@@ -1,5 +1,7 @@
 package com.example.baeza.simplemvpjava;
 
+import android.content.Context;
+
 public class MainPresenter implements MainManager.Presenter {
     /*
      * El presentador esta en  contacto tanto con el modelo como con la
@@ -15,9 +17,9 @@ public class MainPresenter implements MainManager.Presenter {
      * una vista
      * */
 
-    public MainPresenter(MainManager.View view) {
+    public MainPresenter(MainManager.View view, Context context) {
         this.view = view;
-        model = new MainModel(this);
+        model = new MainModel(this, context);
     }
 
     @Override
@@ -29,9 +31,23 @@ public class MainPresenter implements MainManager.Presenter {
     }
 
     @Override
+    public void changeColorView(int colorString) {
+        if (view != null) {
+            view.changeColorView(colorString);
+        }
+    }
+
+    @Override
     public void changeName() {
         if (view != null) {
             model.changeName();
+        }
+    }
+
+    @Override
+    public void changeColorModel() {
+        if (view != null) {
+            model.changeColorModel();
         }
     }
 }
